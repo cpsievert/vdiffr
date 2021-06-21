@@ -117,7 +117,7 @@ expect_doppelganger <- function(title,
     )
   }
 
-  if (is_graphics_engine_stale()) {
+  if (is_graphics_engine_stale() && identical(writer, write_svg)) {
     testthat::skip(paste_line(
       "The R graphics engine is too old.",
       "Please update to R 4.1.0 and regenerate the vdiffr snapshots."
@@ -132,7 +132,7 @@ expect_doppelganger <- function(title,
       cran = cran
     ),
     expectation_failure = function(cnd) {
-      if (is_snapshot_stale(title, testcase)) {
+      if (is_snapshot_stale(title, testcase) && identical(writer, write_svg)) {
         testthat::skip(paste_line(
           "SVG snapshot generated under a different vdiffr version.",
           "i" = "Please update your snapshots."
